@@ -1,0 +1,3 @@
+ndtkit-api
+nicegui
+pyinstaller

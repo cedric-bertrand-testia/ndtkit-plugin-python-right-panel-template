@@ -1,0 +1,28 @@
+from nicegui import ui
+from configuration import t, get_port_from_config, is_launched_from_executable, get_logger
+from ndtkit_api.ndtkit_socket_connection import gateway
+
+
+def launch_action():
+    """The main action"""
+    get_logger().info("Action launched")
+    gateway.jvm.java.lang.System.out.println("Action launched")  # Print in NDTkit logs
+
+
+@ui.refreshable
+def draw_ui():
+    """The main UI"""
+    with ui.card().classes('w-full max-w-2xl mx-auto p-4'):
+        ui.label(t('title')).classes('text-xl font-bold mb-4')
+        with ui.row().classes('w-full justify-between'):
+            ui.button(t('run'), on_click=launch_action)
+
+    if not is_launched_from_executable():
+        # This label is useful to avoid mistake when debugging the tool: it is removed when
+        # the plugin is built in production mode (in a .exe file), so the user knows if it
+        # comes from the Python code (Debug mode) or from the .exe file (no label)
+        ui.label("Debug mode").classes('text-xs text-gray-400 w-full text-center mt-2 italic')
+
+
+if __name__ in {"__main__", "__mp_main__"}:
+    ui.run(lambda: draw_ui(), port=get_port_from_config(), show=False, reload=not is_launched_from_executable())

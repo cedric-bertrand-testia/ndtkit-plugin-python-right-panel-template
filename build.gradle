@@ -1,0 +1,98 @@
+buildscript {
+    repositories {
+        gradlePluginPortal()
+    }
+}
+
+plugins {
+    id 'java-library'
+    id 'org.ajoberstar.grgit' version '5.2.2'
+}
+
+
+group 'com.testia.plugins'
+version '1.0.0'
+
+def ndtkitDir = "D:\\Softwares\\NDTkit_Installs\\NDTkit_4.1.0" // Change this path with your actual NDTkit installation folder
+
+repositories {
+    mavenCentral()
+}
+
+
+dependencies {
+
+    // pf4j plugin
+    compileOnly group: 'org.pf4j', name: 'pf4j', version: '3.10.0'
+    compileOnly group: 'args4j', name: 'args4j', version: '2.37'
+    testImplementation group: 'args4j', name: 'args4j', version: '2.37'
+
+    def commonsTree = fileTree(dir: "${ndtkitDir}/lib", include: '**/ndt-commons-*.jar', exclude: '*-test.jar')
+    def flawmodelTree = fileTree(dir: "${ndtkitDir}/lib", include: '**/ndt-flawmodel-*.jar')
+    def ndtkitJar = files("${ndtkitDir}/NDTkit.jar")
+
+    // --- Validation (Check if empty) ---
+    if (commonsTree.isEmpty()) {
+        throw new GradleException("MISSING DEPENDENCY: ndt-commons-*.jar not found in ${ndtkitDir}/lib")
+    }
+    if (flawmodelTree.isEmpty()) {
+        throw new GradleException("MISSING DEPENDENCY: ndt-flawmodel-*.jar not found in ${ndtkitDir}/lib")
+    }
+    if (ndtkitJar.isEmpty() || !ndtkitJar.singleFile.exists()) {
+        throw new GradleException("MISSING DEPENDENCY: NDTkit.jar not found at ${ndtkitDir}/NDTkit.jar")
+    }
+
+    compileOnly commonsTree
+    testImplementation fileTree(dir: "${ndtkitDir}/lib", include: 'ndt-commons-*-test.jar')
+
+    compileOnly flawmodelTree
+
+    compileOnly ndtkitJar
+    testImplementation ndtkitJar
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+
+}
+
+jar {
+    destinationDirectory.set(file("$ndtkitDir/lib/plugins"))
+    manifest {
+        attributes(
+                // For PF4J
+                "Plugin-Class": "com.testia.ndtkit.plugin.pythonplugin.pf4j.PythonPlugin",
+                "Plugin-Id": "python-plugin",
+                "Plugin-License": "TESTIA-licencing",
+                "Plugin-Version": "1.0.0",
+                "Plugin-Description": "NDTkit Python plugin",
+
+                // Other metadata
+                "Implementation-Title": project.name,
+                "Implementation-Version": project.version,
+        )
+    }
+    doLast {
+        print("Plugin installed in:\n$ndtkitDir\\lib\\plugins\n")
+        print("Please restart NDTkit to activate it")
+    }
+}
+
+dependencies {
+
+    compileOnly group: 'org.slf4j', name: 'slf4j-api', version: '1.7.30'
+    // pf4j plugin
+    compileOnly group: 'org.pf4j', name: 'pf4j', version: '3.10.0'
+    compileOnly group: 'args4j', name: 'args4j', version: '2.37'
+    testImplementation group: 'args4j', name: 'args4j', version: '2.37'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.2'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+tasks.named('jar') {
+    exclude '**/python-source-code/**'
+}
