@@ -115,9 +115,15 @@ Just use Gradle to build the project
 
 ## How to deploy
 
-Launch the Gradle task build -> jar
+The following commands allow to deploy the jar file of the plugin directly in the right folder so that NDTkit will recognize it:
 
-This command allow to deploy the jar file of the plugin directly in the right folder so that NDTkit will recognize it. This action must done just once for creating a panel on the right in NDTkit which will display, in a web view, the web content created with the Python's NiceGUI library.
+**For TESTIA developers/subcontractors:**
+
+Launch the Gradle task other -> installJar
+
+**For developers not belonging to TESTIA's development team :**
+
+Launch the Gradle task build -> jar
 
 Then you can launch NDTkit and you're plugin will be available in the software
 -----
