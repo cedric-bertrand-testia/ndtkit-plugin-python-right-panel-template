@@ -25,7 +25,7 @@ public class PythonPluginTools extends NIToolBase {
 
     @Override
     public void onActivate() {
-        LOGGER.debug("activate PythonPluginTool");
+        LOGGER.debug("activate PythonPlugin");
 
         viewPane = new NISidebarTab(I18n.instance().getLocalizedString("python.plugin.action.name"), PythonPluginPane.getInstance(), 300);
         viewPane.setClosable(false);
