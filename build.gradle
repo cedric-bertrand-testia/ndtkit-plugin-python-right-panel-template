@@ -1,3 +1,5 @@
+import java.nio.file.Paths
+
 buildscript {
     repositories {
         gradlePluginPortal()
@@ -13,12 +15,23 @@ plugins {
 group 'com.testia.plugins'
 version '1.0.0'
 
-def ndtkitDir = "D:\\Softwares\\NDTkit_Installs\\NDTkit_4.1.0" // Change this path with your actual NDTkit installation folder
+def ndtkitDir = "C:/Program Files/NDTkit" // Change this path with your actual NDTkit installation folder
 
 repositories {
     mavenCentral()
 }
 
+static def getVersionFromDir(String ndtkitDir) {
+    def versionFile = new File(ndtkitDir, "version.txt")
+    if (versionFile.exists()) {
+        def content = versionFile.text.trim()
+        def matcher = content =~ /(\d+\.\d+\.)/
+        if (matcher.find()) {
+            return matcher.group(1)
+        }
+    }
+    return null
+}
 
 dependencies {
 
@@ -56,7 +69,14 @@ dependencies {
 }
 
 jar {
-    destinationDirectory.set(file("$ndtkitDir/lib/plugins"))
+    def ndtkitVersion = getVersionFromDir(ndtkitDir)
+    if (ndtkitVersion != null) {
+        def userHome = System.getProperty("user.home")
+        def pluginDir = Paths.get(userHome, ".ndtkit", "Conf_${ndtkitVersion}", "plugins").toFile()
+        destinationDirectory.set(pluginDir)
+    } else {
+        destinationDirectory.set(file("$ndtkitDir/lib/plugins"))
+    }
     manifest {
         attributes(
                 // For PF4J
@@ -72,13 +92,11 @@ jar {
         )
     }
     doLast {
-        print("Plugin installed in:\n$ndtkitDir\\lib\\plugins\n")
         print("Please restart NDTkit to activate it")
     }
 }
 
 dependencies {
-
     compileOnly group: 'org.slf4j', name: 'slf4j-api', version: '1.7.30'
     // pf4j plugin
     compileOnly group: 'org.pf4j', name: 'pf4j', version: '3.10.0'
