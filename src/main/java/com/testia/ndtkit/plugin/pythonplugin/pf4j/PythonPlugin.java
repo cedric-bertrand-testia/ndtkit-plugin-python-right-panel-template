@@ -25,10 +25,11 @@ public class PythonPlugin extends NIActionPlugin {
 
     @Override
     public void start() {
-        // This following line allows to check if the provided string is integrated in the license
-        boolean licenseValid = NDTkitServicesManager.getInstance().getSecurityService().isLicenseValid("PYTHON_PLUGIN", "ALL");
+        boolean licenseValid = true;
 
-        licenseValid = true;
+        // RESERVED FOR TESTIA: this following line allows to protect the plugin with a license. It means that the plugin
+        // will be loaded only if the "python-plugin" information is discovered in the license extra information
+        // licenseValid = NDTkitServicesManager.getInstance().getSecurityService().isLicenseValid("python-plugin", "ALL");
 
         if (licenseValid) {
             NDTkitServicesManager.getInstance().getActionService().addAction(PythonPluginAction.ACTION_ID, PythonPluginAction.class);
