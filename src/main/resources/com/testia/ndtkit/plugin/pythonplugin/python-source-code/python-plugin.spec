@@ -1,8 +1,12 @@
 # -*- mode: python ; coding: utf-8 -*-
 import os
+from PyInstaller.utils.hooks import collect_all
 
 # Read the name passed from the build script, or fallback to a default
 plugin_name = os.environ.get('NDTKIT_PLUGIN_NAME', 'python-plugin')
+
+# --- Collect everything for NiceGUI ---
+ng_datas, ng_binaries, ng_hiddenimports = collect_all('nicegui')
 
 block_cipher = None
 
@@ -24,13 +28,17 @@ hidden_imports_list = [
     'json',
 ]
 
+hidden_imports_list.extend(ng_hiddenimports)
+
 a = Analysis(
     ['main.py'],
     pathex=[],
-    binaries=[],
+    # --- Add NiceGUI binaries ---
+    binaries=ng_binaries,
+    # --- Append NiceGUI data files (CSS, JS, etc.) ---
     datas=[
         ('locales', 'locales'),
-    ],
+    ] + ng_datas,
     hiddenimports=hidden_imports_list,
     hookspath=[],
     hooksconfig={},
