@@ -5,20 +5,11 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Launch the user interface of Test",
+      "name": "Launch the user interface of PythonPlugin",
       "type": "debugpy",
       "request": "launch",
       "program": "main.py",
       "console": "integratedTerminal"
-    },
-    {
-        "name": "Deploy Plugin",
-        "type": "debugpy",
-        "request": "launch",
-        "module": "cli.cli",
-        "args": ["deploy"],
-        "console": "integratedTerminal",
-        "cwd": "${workspaceFolder}"
     }
   ]
 }
