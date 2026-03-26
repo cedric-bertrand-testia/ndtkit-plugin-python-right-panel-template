@@ -112,10 +112,6 @@ test {
     useJUnitPlatform()
 }
 
-tasks.named('jar') {
-    exclude '**/python-source-code/**'
-}
-
 tasks.register('installJar') {
     dependsOn jar
 }
