@@ -55,10 +55,10 @@ graph LR
 ```text
 python-plugin/
 ├── src/main/
-│   ├── java/                                                # Pre-compiled Java code (Don't touch unless necessary)
-│   └── resources/com/testia/ndtkit/plugin/pythonplugin/python-source-code      # <--- YOUR CODE GOES HERE (The Python NiceGUI App)
-├── build-for-external.gradle  # Add this file if you're an external company 
-└── build.gradle               # Script to package the plugin
+│   ├── java/                   # Pre-compiled Java code (Don't touch unless necessary)
+├── python-source-code          # <--- YOUR CODE GOES HERE (The Python NiceGUI App)
+├── build-for-external.gradle   # Add this file if you're an external company 
+└── build.gradle                # Script to package the plugin
 ```
 
 -----
@@ -77,13 +77,13 @@ Clone this repository to start your new plugin:
 
 ```bash
 git clone https://<YOUR_REPO>/python-plugin.git python-plugin
-cd python-plugin/resources/com/testia/ndtkit/plugin/pythonplugin/python-source-code
+cd python-plugin/python-source-code
 pip install -r requirements.txt
 ```
 
 ### 2\. Development
 
-Open `python-plugin/resources/com/testia/ndtkit/plugin/pythonplugin/python-source-code/main.py`. This is where you define your interface.
+Open `python-plugin/python-source-code/main.py`. This is where you define your interface.
 
 ```python
 from nicegui import ui
