@@ -13,7 +13,7 @@
     "builds": true,
     "dist": true,
     "**/**.egg-info/": true,
-    "venv/": true,
+    ".venv/": true,
   },
   "debug.inlineValues": "on",
   "cSpell.words": [
