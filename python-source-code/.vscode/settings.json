@@ -2,7 +2,7 @@
   "window.title": "PythonPlugin",
   "[python]": {
     "editor.defaultFormatter": "ms-python.autopep8",
-    "editor.formatOnSave": true,
+    "editor.formatOnSave": true
   },
   "autopep8.args": [
     "--max-line-length=150"
@@ -13,7 +13,7 @@
     "builds": true,
     "dist": true,
     "**/**.egg-info/": true,
-    ".venv/": true,
+    ".venv/": true
   },
   "debug.inlineValues": "on",
   "cSpell.words": [
