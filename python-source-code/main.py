@@ -30,7 +30,8 @@ from ndtkit_api.ndtkit_socket_connection import gateway
 def launch_action():
     """The main action"""
     get_logger().info("Action launched")
-    gateway.jvm.java.lang.System.out.println("Action launched")  # Print in NDTkit logs
+    # Print in NDTkit logs
+    gateway.jvm.java.lang.System.out.println("Action launched")  # type: ignore
 
 
 @ui.refreshable
