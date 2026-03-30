@@ -17,8 +17,13 @@
   },
   "debug.inlineValues": "on",
   "cSpell.words": [
+    "Correr",
+    "Laufen",
+    "linebuf",
     "MEIPASS",
+    "ndtkit",
     "nicegui",
+    "noconsole",
     "pyinstaller",
     "refreshable"
   ]

@@ -17,13 +17,14 @@ def get_logger():
     _logger = app_log_system.get_logger()
     return _logger
 
+
 def get_port_from_config(default_port=1212) -> int:
     """
     Reads the 'port' key from a JSON configuration file located in the same directory.
     Returns default_port if file is missing, invalid, or key is not found.
     """
     try:
-        file_path = gateway.jvm.agi.ndtkit.api.NIFileConstants.USER_CONFIGURATION + "/python-plugin.json"
+        file_path = gateway.jvm.agi.ndtkit.api.NIFileConstants.USER_CONFIGURATION + "/python-plugin.json"  # type: ignore
 
         if not Path(file_path).exists():
             get_logger().info(f"Config file '{file_path}' not found. Using default port: {default_port}")
@@ -39,7 +40,9 @@ def get_port_from_config(default_port=1212) -> int:
         return port
 
     except json.JSONDecodeError:
-        get_logger().info(f"'{file_path}' is not valid JSON. Using default port: {default_port}")
+        if file_path:
+            get_logger().info(f"'{file_path}' is not a valid JSON file.")
+        get_logger().info(f"Using default port: {default_port}")
         return default_port
     except ValueError:
         get_logger().info(f"Port value in JSON is not a valid number. Using default: {default_port}")
@@ -61,7 +64,8 @@ def load_locales(folder_name='locales'):
     # GET ABSOLUTE PATH relative to this python file
     if is_launched_from_executable():
         if hasattr(sys, '_MEIPASS'):
-            base_path = Path(sys._MEIPASS)  # one file exe file
+            # one file exe file created by PyInstaller, the _MEIPASS attribute points to the temp folder where files are extracted
+            base_path = Path(sys._MEIPASS)  # type: ignore
         else:
             base_path = Path(sys.executable).parent  # exe file + _include dir
     else:
@@ -96,7 +100,8 @@ def get_java_lang():
     if current_lang:
         return current_lang
     try:
-        current_lang = gateway.jvm.java.util.Locale.getDefault().getLanguage()  # Memorized only if value comes from NDTkit
+        # Memorized only if value comes from NDTkit
+        current_lang = gateway.jvm.java.util.Locale.getDefault().getLanguage()  # type: ignore
         return current_lang
     except:
         return 'en'
