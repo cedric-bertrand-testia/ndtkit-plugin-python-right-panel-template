@@ -17,14 +17,24 @@
   },
   "debug.inlineValues": "on",
   "cSpell.words": [
+    "codesign",
     "Correr",
+    "datas",
+    "engineio",
+    "finalizer",
+    "hiddenimports",
+    "hooksconfig",
+    "hookspath",
     "Laufen",
     "linebuf",
     "MEIPASS",
     "ndtkit",
     "nicegui",
+    "noarchive",
     "noconsole",
+    "pathex",
     "pyinstaller",
-    "refreshable"
+    "refreshable",
+    "uvicorn"
   ]
 }
