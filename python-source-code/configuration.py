@@ -23,6 +23,7 @@ def get_port_from_config(default_port=1212) -> int:
     Reads the 'port' key from a JSON configuration file located in the same directory.
     Returns default_port if file is missing, invalid, or key is not found.
     """
+    file_path = None
     try:
         file_path = gateway.jvm.agi.ndtkit.api.NIFileConstants.USER_CONFIGURATION + "/python-plugin.json"  # type: ignore
 

@@ -33,8 +33,10 @@
     "noarchive",
     "noconsole",
     "pathex",
+    "pycache",
     "pyinstaller",
     "refreshable",
-    "uvicorn"
+    "uvicorn",
+    "venv"
   ]
 }
