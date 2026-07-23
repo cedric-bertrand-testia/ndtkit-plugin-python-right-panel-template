@@ -2,7 +2,11 @@
   "window.title": "PythonPlugin",
   "[python]": {
     "editor.defaultFormatter": "ms-python.autopep8",
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit",
+      "source.unusedImports": "explicit",
+    }
   },
   "autopep8.args": [
     "--max-line-length=150"
@@ -13,7 +17,7 @@
     "builds": true,
     "dist": true,
     "**/**.egg-info/": true,
-    ".venv/": true
+    "python-source-code/.venv/": true
   },
   "debug.inlineValues": "on",
   "cSpell.words": [
@@ -38,5 +42,8 @@
     "refreshable",
     "uvicorn",
     "venv"
-  ]
+  ],
+  "python.analysis.indexing": true,
+  "editor.suggest.snippetsPreventQuickSuggestions": false,
+  "python.analysis.autoImportCompletions": true
 }

@@ -8,7 +8,7 @@
       "name": "Launch the user interface of PythonPlugin",
       "type": "debugpy",
       "request": "launch",
-      "program": "main.py",
+      "program": "python-source-code/main.py",
       "console": "integratedTerminal"
     }
   ]
