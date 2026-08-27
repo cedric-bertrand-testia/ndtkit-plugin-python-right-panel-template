@@ -18,7 +18,7 @@ def get_logger():
     return _logger
 
 
-def get_port_from_config(default_port=1212) -> int:
+def get_port_from_config(default_port=51212) -> int:
     """
     Reads the 'port' key from a JSON configuration file located in the same directory.
     Returns default_port if file is missing, invalid, or key is not found.

@@ -10,9 +10,20 @@ public class PythonPluginAutomationController {
     private Label debugLabel;
     private PythonPluginConfiguration configuration;
 
+    @FXML
+    public void initialize() {
+        updateLabelText();
+    }
+
+    private void updateLabelText() {
+        if (debugLabel != null) {
+            debugLabel.setText("Waiting for user interface on port " + PythonPluginConfiguration.getServerPort());
+        }
+    }
+
     public void initializeGUIFromConfiguration(final PythonPluginConfiguration configuration) {
         this.configuration = configuration;
-        debugLabel.setText("Debug mode: waiting for user interface on port " + PythonPluginConfiguration.getServerPort());
+        updateLabelText();
     }
 
     public Label getDebugLabel() {

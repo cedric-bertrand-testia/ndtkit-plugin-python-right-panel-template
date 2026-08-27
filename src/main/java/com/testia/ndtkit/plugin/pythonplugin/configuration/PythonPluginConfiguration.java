@@ -37,7 +37,7 @@ public class PythonPluginConfiguration extends NIActionConfiguration {
      * * @return The port number found in the file, or DEFAULT_PORT if any error occurs.
      */
     public static int getServerPort() {
-        int defaultPort = 1212;
+        int defaultPort = 51212;
         String filename = NIFileConstants.USER_CONFIGURATION + "/python-plugin.json";
         // Path relative to the Current Working Directory (where the application is executed)
         Path path = Paths.get(filename);
